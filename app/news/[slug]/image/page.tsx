@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 export default function ImagePage({ params }: { params: { slug: string } }) {
   const newItemSlug = params.slug;
-
   const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newItemSlug);
 
   if (!newsItem) notFound();

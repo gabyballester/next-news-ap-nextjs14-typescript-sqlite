@@ -48,7 +48,8 @@ Nested routes and Layouts allow you to create a hierarchical structure for your 
 ```
 
 - **Dynamic Routes:**
-  Dynamic routes allow you to handle URLs with varying parameters. You can use square brackets -> [], to define dynamic segments in your route.
+
+Dynamic routes allow you to handle URLs with varying parameters. You can use square brackets -> [], to define dynamic segments in your route.
 
 ```bash
 /app
@@ -59,7 +60,8 @@ Nested routes and Layouts allow you to create a hierarchical structure for your 
 ```
 
 - **Parallel Routes:**
-  Parallel routes enable simultaneous or conditional rendering of multiple pages within the same layout. They’re useful for highly dynamic sections, such as dashboards or social feeds.
+
+Parallel routes enable simultaneous or conditional rendering of multiple pages within the same layout. They’re useful for highly dynamic sections, such as dashboards or social feeds.
 
 ```bash
 /app
@@ -72,6 +74,12 @@ Nested routes and Layouts allow you to create a hierarchical structure for your 
 │   │   └── default.tsx
 │   └── layout.tsx
 ```
+
+- **Interceptor routes**
+
+Are used in conjunction with parallel routes to create modals.
+
+They address challenges when building modals, such as sharing content via URLs and preserving context during page reloads.
 
 ## Contributions
 
