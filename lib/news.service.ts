@@ -19,10 +19,10 @@ export function getAvailableNewsYears(): number[] {
   }, []).sort((a, b) => b - a);
 }
 
-export function getAvailableNewsMonths(year: string): number[] {
+export function getAvailableNewsMonths(year: number): number[] {
   return DUMMY_NEWS.reduce((months: number[], news) => {
     const newsYear = new Date(news.date).getFullYear();
-    if (newsYear === parseInt(year, 10)) {
+    if (newsYear === year) {
       const month = new Date(news.date).getMonth() + 1;
       if (!months.includes(month)) {
         months.push(month);
@@ -32,19 +32,19 @@ export function getAvailableNewsMonths(year: string): number[] {
   }, []).sort((a, b) => b - a);
 }
 
-export function getNewsForYear(year: string): DummyNewType[] {
+export function getNewsForYear(year: number): DummyNewType[] {
   return DUMMY_NEWS.filter(
-    (news) => new Date(news.date).getFullYear() === parseInt(year, 10)
+    (news) => new Date(news.date).getFullYear() === year
   );
 }
 
 export function getNewsForYearAndMonth(
-  year: string,
-  month: string
+  year: number,
+  month: number
 ): DummyNewType[] {
   return DUMMY_NEWS.filter((news) => {
     const newsYear = new Date(news.date).getFullYear();
     const newsMonth = new Date(news.date).getMonth() + 1;
-    return newsYear === parseInt(year, 10) && newsMonth === parseInt(month, 10);
+    return newsYear === year && newsMonth === month;
   });
 }

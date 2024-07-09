@@ -16,8 +16,8 @@ export default function FilteredNewsPage({
 }) {
   const { filter } = params;
 
-  const selectedYear = filter?.[0];
-  const selectedMonth = filter?.[1];
+  const selectedYear = parseInt(filter?.[0]);
+  const selectedMonth = parseInt(filter?.[1]);
 
   let subtitle;
   let news: DummyNewType[] = [];
@@ -50,6 +50,13 @@ export default function FilteredNewsPage({
     newsContent = <NewsList news={news} />;
   }
 
+  if (
+    (selectedYear && !getAvailableNewsYears().includes(selectedYear)) ||
+    (selectedMonth &&
+      !getAvailableNewsMonths(selectedYear).includes(selectedMonth))
+  ) {
+    throw new Error("Invalid path.");
+  }
   return (
     <>
       <header id="archive-header">
