@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { NavLink } from "./nav-link";
 
-const links = [{ href: "/news", text: "News" }];
+const links = [
+  { href: "/news", text: "News" },
+  { href: "/archive", text: "Archive" },
+];
 
 export const MainHeader = () => {
   return (
@@ -12,7 +16,7 @@ export const MainHeader = () => {
         <ul>
           {links.map(({ href, text }) => (
             <li key={href}>
-              <Link href={href}>{text}</Link>
+              <NavLink href={href}>{text}</NavLink>
             </li>
           ))}
         </ul>
