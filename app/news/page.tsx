@@ -8,13 +8,15 @@ const links = [
 
 export default function NewsPage() {
   return (
-    <div id="home">
+    <div>
       <h1>News Page</h1>
-      {links.map(({ href, text }) => (
-        <Link key={href} href={href}>
-          {text}
-        </Link>
-      ))}
+      <ul className="news-list">
+        {links.map(({ href, text }) => (
+          <li key={href}>
+            <Link href={href}>{text}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
