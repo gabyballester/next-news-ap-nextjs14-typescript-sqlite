@@ -36,6 +36,43 @@ The platform ensures high code quality and follows best practices.
 
 ## Special Features
 
+- **Nested Routes and layouts:**
+
+Nested routes and Layouts allow you to create a hierarchical structure for your application. You can organize your pages into subdirectories, making it easier to manage complex layouts.
+
+```bash
+/app
+├── /archive
+│   ├── /page.tsx
+│   └── layout.tsx
+```
+
+- **Dynamic Routes:**
+  Dynamic routes allow you to handle URLs with varying parameters. You can use square brackets -> [], to define dynamic segments in your route.
+
+```bash
+/app
+├── /news
+│   ├── /[slug]
+│   │   ├── page.tsx
+│   └── page.tsx
+```
+
+- **Parallel Routes:**
+  Parallel routes enable simultaneous or conditional rendering of multiple pages within the same layout. They’re useful for highly dynamic sections, such as dashboards or social feeds.
+
+```bash
+/app
+├── /archive
+│   ├── /@archive
+│   ├── [year]
+│   │   └── page.tsx
+│   └── page.tsx
+│   ├── /@latest
+│   │   └── default.tsx
+│   └── layout.tsx
+```
+
 ## Contributions
 
 Contributions are welcome. If you would like to contribute, please follow these steps:
