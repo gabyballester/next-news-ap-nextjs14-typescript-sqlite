@@ -1,34 +1,67 @@
 import sql from "better-sqlite3";
 
-import { DUMMY_NEWS } from "@/dummy-news";
 import { DummyNewType } from "@/types";
+import { DUMMY_NEWS } from "@/dummy-news";
 
 // sql path relative to the root folder
 const db = sql("data.db");
 
 export async function getAllNews(): Promise<DummyNewType[]> {
   try {
-    const news = db.prepare("SELECT * FROM news").all() as DummyNewType[];
+    const newsList = db.prepare("SELECT * FROM news").all() as DummyNewType[];
+    // simulate api call delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    return news;
+    return newsList;
   } catch (error) {
-    console.error("Error obtaining meal details", JSON.stringify(error));
+    console.error("Error obtaining news", JSON.stringify(error));
     throw error;
   }
 }
 
-export function getLatestNews(): DummyNewType[] {
-  return DUMMY_NEWS.slice(0, 3);
+export async function getNewsItem(slug: string): Promise<DummyNewType> {
+  try {
+    const newsItem = db
+      .prepare("SELECT * FROM news WHERE slug = ?")
+      .get(slug) as DummyNewType;
+    // simulate api call delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return newsItem;
+  } catch (error) {
+    console.error("Error obtaining news detail", JSON.stringify(error));
+    throw error;
+  }
 }
 
-export function getAvailableNewsYears(): number[] {
-  return DUMMY_NEWS.reduce((years: number[], news) => {
-    const year = new Date(news.date).getFullYear();
-    if (!years.includes(year)) {
-      years.push(year);
-    }
+export async function getLatestNews(): Promise<DummyNewType[]> {
+  try {
+    const latestNews = db
+      .prepare("SELECT * FROM news ORDER BY date DESC LIMIT 3")
+      .all() as DummyNewType[];
+    // simulate api call delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return latestNews;
+  } catch (error) {
+    console.error("Error obtaining latest news", JSON.stringify(error));
+    throw error;
+  }
+}
+
+export async function getAvailableNewsYears(): Promise<number[]> {
+  try {
+    const rows = db
+      .prepare("SELECT DISTINCT strftime('%Y', date) as year FROM news")
+      .all() as { year: number }[];
+
+    const years = rows.map((row) => row.year);
+
+    // simulate api call delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     return years;
-  }, []).sort((a, b) => b - a);
+  } catch (error) {
+    console.error("Error obtaining latest news", JSON.stringify(error));
+    throw error;
+  }
 }
 
 export function getAvailableNewsMonths(year: number): number[] {
