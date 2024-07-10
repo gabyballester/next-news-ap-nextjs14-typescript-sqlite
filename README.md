@@ -18,6 +18,12 @@ npm install
 npm run dev
 ```
 
+## Database
+
+This application uses SQLite as its database. Ensure that the SQLite database is properly set up before running the application.
+
+**Note:** Image files must be stored in assets and also in public allowing the db url access the folder based on the url provided.
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Code Quality and Best Practices

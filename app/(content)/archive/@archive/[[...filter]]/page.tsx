@@ -7,7 +7,7 @@ import {
   getAvailableNewsMonths,
   getNewsForYearAndMonth,
   getAllNews,
-} from "@/lib/news.service";
+} from "@/lib/api.service";
 
 export default function FilteredNewsPage({
   params,

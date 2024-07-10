@@ -1,8 +1,18 @@
+import sql from "better-sqlite3";
+
 import { DUMMY_NEWS } from "@/dummy-news";
 import { DummyNewType } from "@/types";
 
+// sql path relative to the root folder
+const db = sql("data.db");
+
 export function getAllNews(): DummyNewType[] {
-  return DUMMY_NEWS;
+  try {
+    return db.prepare("SELECT * FROM news").all() as DummyNewType[];
+  } catch (error) {
+    console.error("Error obtaining meal details", JSON.stringify(error));
+    throw error;
+  }
 }
 
 export function getLatestNews(): DummyNewType[] {
