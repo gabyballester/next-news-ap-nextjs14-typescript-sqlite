@@ -6,9 +6,11 @@ import { DummyNewType } from "@/types";
 // sql path relative to the root folder
 const db = sql("data.db");
 
-export function getAllNews(): DummyNewType[] {
+export async function getAllNews(): Promise<DummyNewType[]> {
   try {
-    return db.prepare("SELECT * FROM news").all() as DummyNewType[];
+    const news = db.prepare("SELECT * FROM news").all() as DummyNewType[];
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return news;
   } catch (error) {
     console.error("Error obtaining meal details", JSON.stringify(error));
     throw error;
