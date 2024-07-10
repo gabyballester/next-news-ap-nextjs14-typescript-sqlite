@@ -1,83 +1,23 @@
-import Link from "next/link";
-import { NewsList } from "@/components";
-import { DummyNewType } from "@/types";
-import {
-  getNewsForYear,
-  getAvailableNewsYears,
-  getAvailableNewsMonths,
-  getNewsForYearAndMonth,
-  getAllNews,
-} from "@/lib/api.service";
+import { Suspense } from "react";
+import { FilteredNews, FilterHeader } from "./(components)";
 
-export default function FilteredNewsPage({
+export default async function FilteredNewsPage({
   params,
 }: {
   params: { filter: string[] };
 }) {
   const { filter } = params;
 
-  const selectedYear = parseInt(filter?.[0]);
-  const selectedMonth = parseInt(filter?.[1]);
+  const selectedYear = filter?.[0];
+  const selectedMonth = filter?.[1];
 
-  let subtitle;
-  let news: DummyNewType[] = [];
-  let links: number[] = getAvailableNewsYears();
-
-  if (!selectedYear && !selectedMonth) {
-    news = getAllNews();
-    subtitle = "Filter by: Year";
-  }
-
-  if (selectedYear && !selectedMonth) {
-    news = getNewsForYear(selectedYear);
-    links = getAvailableNewsMonths(selectedYear);
-    subtitle = "Filter by: Month";
-  }
-
-  if (selectedYear && selectedMonth) {
-    news = getNewsForYearAndMonth(selectedYear, selectedMonth);
-    links = [];
-    subtitle = `Filtered by: Year ${selectedYear} and Month ${selectedMonth}`;
-  }
-
-  let newsContent = <p>No news found for the selected period.</p>;
-
-  if (news && news.length > 0) {
-    newsContent = <NewsList news={news} />;
-  }
-
-  if (news && news.length > 0) {
-    newsContent = <NewsList news={news} />;
-  }
-
-  if (
-    (selectedYear && !getAvailableNewsYears().includes(selectedYear)) ||
-    (selectedMonth &&
-      !getAvailableNewsMonths(selectedYear).includes(selectedMonth))
-  ) {
-    throw new Error("Invalid path.");
-  }
   return (
     <>
-      <header id="archive-header">
-        <nav>
-          <p>{subtitle}</p>
-          <ul>
-            {links.map((link) => {
-              const href = selectedYear
-                ? `/archive/${selectedYear}/${link}`
-                : `/archive/${link}`;
-
-              return (
-                <li key={link}>
-                  <Link href={href}>{link}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </header>
-      {newsContent}
+      {/* <Suspense fallback={<p>Loading filter...</p>}></Suspense> */}
+      <Suspense fallback={<p>Loading news fallback...</p>}>
+        <FilterHeader year={selectedYear} month={selectedMonth} />
+        <FilteredNews year={selectedYear} month={selectedMonth} />
+      </Suspense>
     </>
   );
 }
