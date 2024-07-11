@@ -2,7 +2,7 @@
 
 ## Descripcion
 
-News App is a Tech Assessment Project to demonstrate knowledge of Next.js. It shows up news from a dummy-news.ts file.
+News App is a Tech Assessment Project to demonstrate knowledge of Next.js. It shows up news from a sqlite database.
 
 ## Getting Started
 

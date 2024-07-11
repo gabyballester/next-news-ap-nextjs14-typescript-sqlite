@@ -1,4 +1,4 @@
-import { DummyNewType } from "./types";
+import { DummyNewType } from "../types";
 
 export const DUMMY_NEWS: DummyNewType[] = [
   {

@@ -3,7 +3,7 @@ import sql from "better-sqlite3";
 import { DummyNewType } from "@/types";
 
 // sql path relative to the root folder
-const db = sql("data.db");
+const db = sql("./database/data.db");
 
 export async function getAllNews(): Promise<DummyNewType[]> {
   try {
